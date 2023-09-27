@@ -15,9 +15,9 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    lang = db.Column(db.String(30))
+    lang = db.Column(db.String(30), )
     # Колонка, в которой хранится tsvector
-    body_vector = db.Column(TSVECTOR)
+    body_vector = db.Column(TSVECTOR, db.Computed("to_tsvector('russian', product.name)"))
 
     # Создаем индекс gin
     __table_args__ = (
